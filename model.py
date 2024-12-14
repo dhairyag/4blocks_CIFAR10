@@ -27,57 +27,51 @@ class CIFAR10Net(nn.Module):
         self.layer5_channels = 64
         self.num_classes = 10
         
+        # Receptive Field (RF) is shown in the comments
         # Conv Block 1
         self.conv1 = nn.Sequential(
-            nn.Conv2d(self.input_channels, self.layer1_channels, kernel_size=3, padding=1),
+            nn.Conv2d(self.input_channels, self.layer1_channels, kernel_size=3, padding=1), # RF=3   
             nn.BatchNorm2d(self.layer1_channels),
             nn.ReLU(),
-            nn.Conv2d(self.layer1_channels, self.layer2_channels, kernel_size=3, padding=1),
+            nn.Conv2d(self.layer1_channels, self.layer2_channels, kernel_size=3, padding=1), # RF=5
             nn.BatchNorm2d(self.layer2_channels),
             nn.ReLU(),
-            nn.Conv2d(self.layer2_channels, self.layer2_channels, kernel_size=3, padding=1),
+            nn.Conv2d(self.layer2_channels, self.layer2_channels, kernel_size=3, padding=1), # RF=7
             nn.BatchNorm2d(self.layer2_channels),
             nn.ReLU(),
         )
-        # receptive field calculation 3+2+2 = 7
         # Conv Block 2 (with Depthwise Separable Conv)
         self.conv2 = nn.Sequential(
-            DepthwiseSeparableConv(self.layer2_channels, self.layer3_channels, stride=2),
+            DepthwiseSeparableConv(self.layer2_channels, self.layer3_channels, stride=2), # RF=9
             nn.BatchNorm2d(self.layer3_channels),
             nn.ReLU(),
-            nn.Conv2d(self.layer3_channels, self.layer3_channels, kernel_size=3, padding=1),
+            nn.Conv2d(self.layer3_channels, self.layer3_channels, kernel_size=3, padding=1), # RF=14
             nn.BatchNorm2d(self.layer3_channels),
             nn.ReLU(),
-            nn.Conv2d(self.layer3_channels, self.layer3_channels, kernel_size=3, padding=1),
+            nn.Conv2d(self.layer3_channels, self.layer3_channels, kernel_size=3, padding=1), # RF=13
             nn.BatchNorm2d(self.layer3_channels),
             nn.ReLU(),
-        )
-        # receptive field calculation 7+(2+0)+4+4 = 17
-        
+        )        
         # Conv Block 3 (with Dilated Conv)
         self.conv3 = nn.Sequential(
-            nn.Conv2d(self.layer3_channels, self.layer4_channels, kernel_size=3, padding=2, dilation=2),
+            nn.Conv2d(self.layer3_channels, self.layer4_channels, kernel_size=3, padding=2, dilation=2), # RF=21
             nn.BatchNorm2d(self.layer4_channels),
             nn.ReLU(),
-            nn.Conv2d(self.layer4_channels, self.layer4_channels, kernel_size=3, padding=1),
+            nn.Conv2d(self.layer4_channels, self.layer4_channels, kernel_size=3, padding=1), # RF=29
             nn.BatchNorm2d(self.layer4_channels),
             nn.ReLU(),
         )
-        # receptive field calculation 17+4+8 = 29
-        
+
         # Conv Block 4
         self.conv4 = nn.Sequential(
-            nn.Conv2d(self.layer4_channels, self.layer5_channels, kernel_size=3, padding=1, stride=2),
+            nn.Conv2d(self.layer4_channels, self.layer5_channels, kernel_size=3, padding=1, stride=2), # RF=37
             nn.BatchNorm2d(self.layer5_channels),
             nn.ReLU(),
-            nn.Conv2d(self.layer5_channels, self.layer5_channels, kernel_size=3, padding=1),
+            nn.Conv2d(self.layer5_channels, self.layer5_channels, kernel_size=3, padding=1), # RF=45 
             nn.BatchNorm2d(self.layer5_channels),
             nn.ReLU(),
-            nn.Conv2d(self.layer5_channels, self.layer5_channels, kernel_size=1),  # 1x1 conv
-            nn.BatchNorm2d(self.layer5_channels),
-            nn.ReLU(),
+            nn.Conv2d(self.layer5_channels, self.layer5_channels, kernel_size=1),  # RF=45
         )
-        # receptive field calculation 35+16 = 51
         # Output Block
         self.gap = nn.AdaptiveAvgPool2d(1)
         self.fc = nn.Linear(self.layer5_channels, self.num_classes)
