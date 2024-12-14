@@ -136,7 +136,7 @@ def main():
         #plt.show()
         
         # Save the plot as a PNG file
-        plt.savefig('training_curves.png')
+        plt.savefig('images/training_curves.png')
         plt.close()
 
     finally:

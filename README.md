@@ -2,7 +2,7 @@
 
 [![Model Architecture Checks](https://github.com/dhairyag/4blocks_CIFAR10/actions/workflows/model-checks.yml/badge.svg)](https://github.com/dhairyag/4blocks_CIFAR10/actions/workflows/model-checks.yml)
 
-This project implements a custom Convolutional Neural Network (CNN) architecture for the CIFAR10 dataset classification task. The network achieves 85%+ accuracy while maintaining under 128k parameters through efficient architecture choices and modern convolution techniques.
+This project implements a custom Convolutional Neural Network (CNN) architecture for the CIFAR10 dataset classification task. The network achieves 85%+ accuracy while maintaining under **128k parameters** through efficient architecture choices and modern convolution techniques.
 
 ## Project Structure
 
@@ -30,6 +30,17 @@ This project implements a custom Convolutional Neural Network (CNN) architecture
   - Horizontal Flip
   - ShiftScaleRotate
   - CoarseDropout
+
+## Screenshot for training
+![Training](./images/training.png)
+
+## Plots for training and test accuracy
+The plots show:
+- Training and test accuracy curves reaching >85% accuracy
+- Training and test loss curves showing consistent decrease
+- OneCycleLR learning rate schedule with peak at 0.4 and cosine annealing
+
+![Training](./images/training_curves.png)
 
 ## Model Architecture
 ```bash
