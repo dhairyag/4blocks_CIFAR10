@@ -15,12 +15,12 @@ def main():
         
         # Hyperparameters
         batch_size = 512
-        epochs = 25
+        epochs = 28
         base_lr = 0.01
         max_lr = 0.4
         pct_start = 0.25  # Spend 25% of time in ramp up
         div_factor = 25.0  # initial_lr = max_lr/div_factor
-        final_div_factor = 1e4  # final_lr = initial_lr/final_div_factor
+        final_div_factor = 3e4  # final_lr = initial_lr/final_div_factor
         
         # Data loading
         train_dataset = CIFAR10Albumentations(
