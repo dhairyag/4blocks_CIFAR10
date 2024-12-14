@@ -1,5 +1,7 @@
 # CIFAR10 Image Classification with Custom CNN
 
+[![Model Architecture Checks](https://github.com/dhairyag/4blocks_CIFAR10/actions/workflows/model-checks.yml/badge.svg)](https://github.com/dhairyag/4blocks_CIFAR10/actions/workflows/model-checks.yml)
+
 This project implements a custom Convolutional Neural Network (CNN) architecture for the CIFAR10 dataset classification task. The network achieves 85%+ accuracy while maintaining under 128k parameters through efficient architecture choices and modern convolution techniques.
 
 ## Project Structure
@@ -19,7 +21,7 @@ This project implements a custom Convolutional Neural Network (CNN) architecture
 ## Key Features
 
 - Custom CNN architecture optimized for CIFAR10
-- Efficient parameter usage (< 200k params)
+- Efficient parameter usage  (< 128k params)
 - Modern convolution techniques:
   - Depthwise Separable Convolution
   - Dilated Convolution
@@ -85,7 +87,7 @@ Total mult-adds (Units.MEGABYTES): 21.99
 ### Key Architectural Decisions
 
 - **No MaxPooling**: Uses strided convolutions for downsampling
-- **Receptive Field**: > 44 pixels
+- **Receptive Field**: 45 pixels
 - **Layer Structure**: C1-C2-C3-C4-O format
 - **Special Layers**:
   - Depthwise Separable Convolution in one layer
@@ -105,8 +107,8 @@ numpy>=1.19.2
 
 ## Installation
 ```bash
-git clone [repository-url]
-cd [repository-name]
+git clone git@github.com:dhairyag/4blocks_CIFAR10.git
+cd 4blocks_CIFAR10
 pip install -r requirements.txt
 ```
 
@@ -115,12 +117,7 @@ pip install -r requirements.txt
 
 ### Training
 ```bash
-python train.py
-```
-
-### Inference
-```bash
-python main.py --input path/to/image
+python main.py
 ```
 
 
